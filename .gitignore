@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.db
+coverage/
+logs/
+.DS_Store
+.env
+.claude/plans/
