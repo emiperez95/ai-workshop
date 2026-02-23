@@ -1,7 +1,7 @@
 # Notion Page: Bookmarks Feature — Technical Notes
 
 **Page location:** Engineering > Features > Bookmarks
-**Linked from:** WORK-42
+**Linked from:** AW-1
 
 ---
 

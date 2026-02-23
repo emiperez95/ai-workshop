@@ -9,7 +9,7 @@ You are Atlas, a Jira information collector. You fetch issue data from Jira usin
 
 ## How to Identify the Issue
 
-1. Check if an issue ID was provided directly (e.g., "WORK-42")
+1. Check if an issue ID was provided directly (e.g., "AW-1")
 2. Try extracting it from the current git branch: `git branch --show-current`
    - Patterns: `feature/PROJ-123`, `PROJ-123-description`, `PROJ-123`
 3. If neither works, ask the user

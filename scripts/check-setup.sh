@@ -11,7 +11,7 @@ set -uo pipefail
 
 # ── Configuration (facilitator: fill these in before the workshop) ────
 DEFAULT_REPO=""                # e.g. "myorg/demo-project"
-DEFAULT_JIRA_PROJECT=""        # e.g. "WORK"
+DEFAULT_JIRA_PROJECT="AW"
 MIN_CLAUDE_VERSION="2.0.0"
 MIN_NODE_VERSION=18
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -19,13 +19,13 @@ A hands-on workshop to get 6-10 experienced engineers to adopt agentic AI (Claud
 - 2 hours, hands-on
 - Tool: Claude Code (terminal)
 - Demo project: RealWorld blog API (Express + TypeScript + Prisma + SQLite)
-- Everyone works the same Jira ticket (WORK-42: Add bookmarks)
+- Everyone works the same Jira ticket (AW-1: Add bookmarks)
 - They do the work, facilitator circulates and helps
 
 ### The Flow (Ticket to PR)
 
 ```
-1. /jira-status          → See the board, pick ticket WORK-42
+1. /jira-status          → See the board, pick ticket AW-1
 2. Atlas agent           → Fetch ticket details from Jira (acli)
 3. Minerva agent         → Fetch design doc from Notion (MCP)
 4. Plan mode             → AI proposes approach, participant steers and refines
@@ -61,8 +61,8 @@ A hands-on workshop to get 6-10 experienced engineers to adopt agentic AI (Claud
 ## Files in This Repo
 
 - `workshop-final.md` — **Current workshop plan** (structure, timing, exercises)
-- `jira-ticket.md` — Ticket text to create in Jira (WORK-42)
-- `notion-doc.md` — Notion page text to create (design notes for WORK-42)
+- `jira-ticket.md` — Ticket text to create in Jira (AW-1)
+- `notion-doc.md` — Notion page text to create (design notes for AW-1)
 - `scripts/check-setup.sh` — Pre-workshop setup validator
 - `facilitator-backup/jira-status.md` — Backup `/jira-status` command
 - `demo-project/` — The codebase participants work on
@@ -82,7 +82,7 @@ A hands-on workshop to get 6-10 experienced engineers to adopt agentic AI (Claud
 
 ## Still TODO
 
-- [ ] Create Jira project (WORK) and ticket (WORK-42)
+- [x] Create Jira project (AW) and ticket (AW-1)
 - [ ] Create Notion page with technical design notes
 - [ ] Test full pipeline end-to-end with Claude Code
 - [ ] Verify ticket ambiguity produces imperfect first plan

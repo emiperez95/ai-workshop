@@ -79,7 +79,7 @@ demo-project/
 
 ## The Workshop Ticket
 
-### WORK-42: Add bookmarks feature
+### AW-1: Add bookmarks feature
 
 **Description**: Users want to save articles for later. Separate from favorites (which are more like "likes"). Should work similar to favorites but be independent.
 
@@ -156,20 +156,20 @@ Participants do this on their own, 3+ days before the workshop.
 
 **What they'll experience**:
 - Claude helps them write the command file
-- They test it: `/jira-status WORK`
-- They see the board, pick their ticket (WORK-42)
+- They test it: `/jira-status AW`
+- They see the board, pick their ticket (AW-1)
 - They've just extended Claude Code themselves
 
 **Facilitator note**: Have `facilitator-backup/jira-status.md` ready to drop in for anyone who gets stuck.
 
 ### Part 3: Work the Ticket (60-70 min)
 
-**Format**: Individual work. Everyone works the same ticket (WORK-42) at their own pace. Facilitator circulates.
+**Format**: Individual work. Everyone works the same ticket (AW-1) at their own pace. Facilitator circulates.
 
 **The pipeline they follow**:
 
 #### Step 1: Fetch the ticket (~5 min)
-> "Ask Claude to look at ticket WORK-42"
+> "Ask Claude to look at ticket AW-1"
 
 Atlas agent automatically fetches the ticket details, AC, and PO notes. They read the requirements.
 
@@ -264,7 +264,7 @@ Let it flow naturally. Likely topics:
 - Jira board accessible (if configured)
 
 ### For facilitator:
-- [ ] Jira project created (WORK) with ticket WORK-42
+- [x] Jira project created (AW) with ticket AW-1
 - [ ] Notion page created with technical design notes
 - [ ] Demo project tested end-to-end with Claude Code
 - [ ] Ticket produces an imperfect first plan (verify the ambiguity works)
