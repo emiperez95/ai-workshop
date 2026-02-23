@@ -3,7 +3,7 @@
 ## Workshop Definition
 
 ### Objective
-Get 6-10 experienced engineers to adopt agentic AI (Claude Code) as part of their daily workflow by working a Jira ticket through a full ticket-to-PR pipeline.
+Get 6-10 experienced engineers to adopt agentic AI (Claude Code) as part of their daily workflow by working a GitHub issue through a full issue-to-PR pipeline.
 
 ### The Audience
 Good engineers who use Cursor/Copilot for suggestions and sidebar chat. Some are enthusiastic, some aren't particularly interested. Most have tried AI tools and have a working relationship with them — but mainly for autocomplete and quick questions.
@@ -11,13 +11,13 @@ Good engineers who use Cursor/Copilot for suggestions and sidebar chat. Some are
 **They won't be convinced by a pitch or a demo.** They need to try it themselves on real-feeling tasks and form their own opinion.
 
 ### Core Strategy
-Give them a real workflow — not toy exercises. One Jira ticket, worked from start to finish: fetch the ticket, read the design doc, plan the implementation, write the code, review it, ship it. They do the whole thing with Claude Code. No comparisons, no proving a point.
+Give them a real workflow — not toy exercises. One GitHub issue, worked from start to finish: fetch the issue, read the design doc, plan the implementation, write the code, review it, ship it. They do the whole thing with Claude Code. No comparisons, no proving a point.
 
 ### Desired Outcome
 Every participant leaves having:
-1. **Worked a full ticket** — from Jira ticket to PR, using Claude Code for every step
+1. **Worked a full issue** — from GitHub issue to PR, using Claude Code for every step
 2. **Steered the AI** — read a plan, pushed back, refined the approach through discussion
-3. **Built something** — created their own `/jira-status` command, so they understand how to extend the tool
+3. **Built something** — created their own `/board-status` command, so they understand how to extend the tool
 4. **Formed their own opinion** — based on hands-on experience, not a demo
 5. **Seen the ceiling** — a brief look at what advanced workflows look like
 
@@ -62,7 +62,7 @@ npm run develop      # creates SQLite DB + compiles + starts server on :3000
 demo-project/
 ├── .claude/
 │   └── agents/
-│       ├── atlas-jira-analyst.md       # Reads Jira tickets via acli
+│       ├── atlas-github-analyst.md     # Reads GitHub issues via gh
 │       └── minerva-notion-oracle.md    # Reads Notion docs via MCP
 ├── .mcp.json                           # Notion MCP config (auth on first use)
 ├── prisma/schema.prisma                # 4 models: User, Article, Comment, Tag
@@ -77,9 +77,9 @@ demo-project/
 
 ---
 
-## The Workshop Ticket
+## The Workshop Issue
 
-### AW-1: Add bookmarks feature
+### #1: Add bookmarks feature
 
 **Description**: Users want to save articles for later. Separate from favorites (which are more like "likes"). Should work similar to favorites but be independent.
 
@@ -96,9 +96,9 @@ demo-project/
 
 **Linked Notion doc**: "Bookmarks Feature — Technical Notes" — contains the decision to use a dedicated Bookmark model (not a simple many-to-many like favorites), endpoint conventions, and scope boundaries.
 
-### Why This Ticket Works for the Workshop
+### Why This Issue Works for the Workshop
 
-The ticket is **intentionally ambiguous** in ways that force discussion:
+The issue is **intentionally ambiguous** in ways that force discussion:
 
 1. **"Similar to favorites"** → Claude will propose copying the favorites pattern (many-to-many). But the Notion doc says use a dedicated model. The participant needs to steer.
 2. **Folders/collections "at some point"** → Classic PO trap. Claude might over-engineer or ignore it. Either way, the participant should have an opinion.
@@ -116,10 +116,10 @@ The ticket is **intentionally ambiguous** in ways that force discussion:
 
 Participants do this on their own, 3+ days before the workshop.
 
-1. Install the tools: Claude Code, gh, acli
+1. Install the tools: Claude Code, gh
 2. Clone the repo: `git clone [repo-url]`
 3. Run the setup checker: `bash scripts/check-setup.sh`
-   - Validates: Claude Code, git, gh + auth, acli + auth, Notion MCP, npm install, tests pass
+   - Validates: Claude Code, git, gh + auth, Notion MCP, npm install, tests pass
 4. Fix any failures using the hints in the output
 5. If stuck, ping the facilitator before the workshop
 
@@ -131,7 +131,7 @@ Participants do this on their own, 3+ days before the workshop.
 
 "You all use AI for code suggestions and chat. The tool you're about to try is different in one way: **it can execute.** It reads files, runs commands, edits code across multiple files, runs your tests. Instead of suggesting what to do, it does it — with your approval at each step."
 
-"We're going to work a real Jira ticket from start to finish — fetch the requirements, plan the approach, implement it, review it, ship it. Use Claude Code for the whole thing."
+"We're going to work a real GitHub issue from start to finish — fetch the requirements, plan the approach, implement it, review it, ship it. Use Claude Code for the whole thing."
 
 **10-minute orientation** — everyone follows along:
 
@@ -147,36 +147,36 @@ Participants do this on their own, 3+ days before the workshop.
 
 ### Part 2: Build Your First Command (15 min)
 
-**What they do**: Create a `/jira-status` command that shows the Jira board.
+**What they do**: Create a `/board-status` command that shows the GitHub issues.
 
 **Why**: It's quick (one `.md` file), produces visible output, and teaches how commands work. It's also the first step in the pipeline they're about to use.
 
 **Instructions** (on screen or printed):
-> "Create a Claude Code command called `/jira-status` that takes a project key and shows tickets in the current sprint, grouped by status. You'll need a file at `.claude/commands/jira-status.md`. The Jira CLI is `acli` — ask Claude to help you figure out the right command."
+> "Create a Claude Code command called `/board-status` that shows open issues in the repo, grouped by label. You'll need a file at `.claude/commands/board-status.md`. The GitHub CLI is `gh` — ask Claude to help you figure out the right command."
 
 **What they'll experience**:
 - Claude helps them write the command file
-- They test it: `/jira-status AW`
-- They see the board, pick their ticket (AW-1)
+- They test it: `/board-status`
+- They see the issues, spot issue #1
 - They've just extended Claude Code themselves
 
-**Facilitator note**: Have `facilitator-backup/jira-status.md` ready to drop in for anyone who gets stuck.
+**Facilitator note**: Have `facilitator-backup/board-status.md` ready to drop in for anyone who gets stuck.
 
-### Part 3: Work the Ticket (60-70 min)
+### Part 3: Work the Issue (60-70 min)
 
-**Format**: Individual work. Everyone works the same ticket (AW-1) at their own pace. Facilitator circulates.
+**Format**: Individual work. Everyone works the same issue (#1) at their own pace. Facilitator circulates.
 
 **The pipeline they follow**:
 
-#### Step 1: Fetch the ticket (~5 min)
-> "Ask Claude to look at ticket AW-1"
+#### Step 1: Fetch the issue (~5 min)
+> "Ask Claude to look at issue #1"
 
-Atlas agent automatically fetches the ticket details, AC, and PO notes. They read the requirements.
+Atlas agent automatically fetches the issue details, acceptance criteria, and PO notes. They read the requirements.
 
 #### Step 2: Fetch the design doc (~5 min)
-> "The ticket links to a Notion doc. Ask Claude to fetch it."
+> "The issue links to a Notion doc. Ask Claude to fetch it."
 
-Minerva agent fetches the technical design notes from Notion. Now they have the full context — and the tension between "similar to favorites" (ticket) vs. "dedicated model" (Notion doc).
+Minerva agent fetches the technical design notes from Notion. Now they have the full context — and the tension between "similar to favorites" (issue) vs. "dedicated model" (Notion doc).
 
 #### Step 3: Plan the implementation (~15 min)
 > "Ask Claude to plan the implementation. Read the plan carefully — do you agree with the approach?"
@@ -214,7 +214,7 @@ Now that they've experienced the pipeline firsthand, show where it goes:
 
 - **CLAUDE.md**: "You generated one with `/init`. Here's what ours looks like for the real project — conventions, test commands, gotchas."
 - **Hooks**: "Every file Claude edits gets auto-formatted and linted. 5-line config."
-- **Full agent suite**: "What you used today — Atlas, Minerva — we have 8 of these. PR reviewers, Jira writers, Drive readers."
+- **Full agent suite**: "What you used today — Atlas, Minerva — we have 8 of these. PR reviewers, doc readers, and more."
 - **Parallel sessions**: "I work on multiple tickets simultaneously, each in its own isolated environment."
 
 **Keep it to 10 minutes.** The message: "What you did today is the foundation. There's more depth if you keep using it."
@@ -247,28 +247,26 @@ Let it flow naturally. Likely topics:
 > 1. Install Claude Code: `npm install -g @anthropic-ai/claude-code`
 > 2. Run `claude` once to authenticate (opens browser)
 > 3. Install GitHub CLI: `brew install gh` → `gh auth login`
-> 4. Install Atlassian CLI: `brew tap atlassian/homebrew-acli && brew install acli` → `acli auth login --web`
-> 5. Clone the workshop repo: `git clone [repo-url]`
-> 6. Run the checker: `bash scripts/check-setup.sh`
-> 7. Fix any failures using the hints — run the script again until everything passes
+> 4. Clone the workshop repo: `git clone [repo-url]`
+> 5. Run the checker: `bash scripts/check-setup.sh`
+> 6. Fix any failures using the hints — run the script again until everything passes
 >
 > If you get stuck, ping me before the workshop.
 
 ### Setup Checker
 `scripts/check-setup.sh` validates everything in one run:
 - Claude Code >= 2.0.0 (+ node/npm if Claude missing)
-- git, gh + auth, acli + auth
+- git, gh + auth
 - Notion MCP configured + authenticated
 - Demo project: npm install + all 100 tests pass
 - Demo repo accessible (if configured)
-- Jira board accessible (if configured)
 
 ### For facilitator:
-- [x] Jira project created (AW) with ticket AW-1
-- [ ] Notion page created with technical design notes
+- [x] GitHub issue created (#1: Add bookmarks)
+- [x] Notion page created with technical design notes
 - [ ] Demo project tested end-to-end with Claude Code
-- [ ] Ticket produces an imperfect first plan (verify the ambiguity works)
-- [ ] `facilitator-backup/jira-status.md` ready
+- [ ] Issue produces an imperfect first plan (verify the ambiguity works)
+- [ ] `facilitator-backup/board-status.md` ready
 - [ ] Advanced setup ready for ceiling demo (agents, hooks, parallel sessions)
 
 ---
@@ -279,21 +277,18 @@ Let it flow naturally. Likely topics:
 ai-workshop/
 ├── CLAUDE.md                          # Project instructions
 ├── workshop-final.md                  # This file — the workshop plan
-├── jira-ticket.md                     # Ticket text (to create in Jira)
-├── notion-doc.md                      # Notion page text (to create in Notion)
+├── facilitator-prompt.md              # AI facilitator for self-guided workshop
+├── notion-doc.md                      # Notion page text (design notes)
 ├── scripts/
 │   └── check-setup.sh                 # Pre-workshop setup validator
 ├── facilitator-backup/
-│   └── jira-status.md                 # Backup command if someone gets stuck
+│   └── board-status.md                # Backup command if someone gets stuck
 ├── demo-project/                      # The codebase participants work on
 │   ├── .claude/agents/                # Atlas + Minerva (pre-built)
 │   ├── .mcp.json                      # Notion MCP config
 │   ├── prisma/schema.prisma           # Data models
 │   ├── src/                           # Express + TypeScript API
 │   └── package.json                   # Zero-config: npm install && npm test
-├── workshop.md                        # Earlier draft (reference only)
-├── workshop-claude-workflow.md        # Earlier draft (reference only)
-└── slides.md                          # Earlier draft (reference only)
 ```
 
 ---
@@ -308,6 +303,6 @@ ai-workshop/
 
 4. **Don't rescue too quickly.** If Claude gives a wrong answer, let them figure out how to steer it. That's the real skill. Step in only for tooling issues.
 
-5. **Context is the lesson.** The ticket + Notion doc pattern shows them: the more context you give the AI, the better it performs. `CLAUDE.md`, agents, design docs — it all feeds the same idea.
+5. **Context is the lesson.** The issue + Notion doc pattern shows them: the more context you give the AI, the better it performs. `CLAUDE.md`, agents, design docs — it all feeds the same idea.
 
 6. **No pressure to adopt.** The goal is exposure, not conversion. If someone tries it and decides it's not for them right now, that's fine.
