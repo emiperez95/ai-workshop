@@ -21,6 +21,8 @@ router.get(
   articles.articlesFeed
 );
 
+router.get("/bookmarks", auth.authenticate, articles.articlesBookmarksList);
+
 router.get("/:slug", auth.optionalAuthenticate, articles.articlesGet);
 
 router.post(
@@ -60,6 +62,14 @@ router.delete(
   "/:slug/favorite",
   auth.authenticate,
   articles.articlesUnFavorite
+);
+
+router.post("/:slug/bookmark", auth.authenticate, articles.articlesBookmark);
+
+router.delete(
+  "/:slug/bookmark",
+  auth.authenticate,
+  articles.articlesUnBookmark
 );
 
 export default router;
