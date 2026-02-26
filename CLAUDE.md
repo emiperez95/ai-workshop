@@ -70,10 +70,3 @@ A hands-on workshop to get 6-10 experienced engineers to adopt agentic AI (Claud
 | Atlas (GitHub) | `gh` | `gh auth login` (browser OAuth) | ~3 min |
 | Minerva (Notion) | Notion MCP | OAuth on first MCP connect | ~5 min |
 
-## Still TODO
-
-- [x] Create GitHub issue (#1: Add bookmarks)
-- [x] Create Notion page with technical design notes
-- [ ] Test full pipeline end-to-end with Claude Code
-- [ ] Verify ticket ambiguity produces imperfect first plan
-- [ ] Decide exact workshop timing
