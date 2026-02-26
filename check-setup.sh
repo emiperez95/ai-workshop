@@ -183,11 +183,11 @@ check_notion_mcp() {
   if echo "$mcp_output" | grep -q "notion.*Connected"; then
     pass "notion_mcp" "connected" "Notion MCP configured"
   elif echo "$mcp_output" | grep -q "notion.*authentication"; then
-    fail "notion_mcp" "needs auth" "Notion MCP authenticated" "Open Claude Code in demo-project/ and connect to Notion when prompted"
+    fail "notion_mcp" "needs auth" "Notion MCP authenticated" "Run: cd demo-project && claude mcp add -s local notion --transport sse https://mcp.notion.com/sse — then open Claude Code and approve the Notion OAuth prompt"
   elif echo "$mcp_output" | grep -q "notion"; then
     pass "notion_mcp" "configured" "Notion MCP configured"
   else
-    fail "notion_mcp" "not found" "Notion MCP configured" "cd demo-project && claude mcp add -s local notion --transport sse https://mcp.notion.com/sse"
+    fail "notion_mcp" "not found" "Notion MCP configured" "Run: cd demo-project && claude mcp add -s local notion --transport sse https://mcp.notion.com/sse — then open Claude Code and approve the Notion OAuth prompt"
   fi
 }
 
