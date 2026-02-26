@@ -1,6 +1,6 @@
 # Facilitator Checklist
 
-Quick reference for running the workshop. For full details see `notes.md`.
+Quick reference for running the workshop. For full details see `docs/notes.md`.
 
 ---
 
