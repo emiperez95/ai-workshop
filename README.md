@@ -24,14 +24,17 @@ Fix any failures using the hints in the output. Run the script again until every
 
 ### 2. Self-Guided Mode
 
-If you're completing the workshop on your own, use the **facilitator prompt** to have an AI guide you through it step by step.
+If you're completing the workshop on your own, use the AI facilitator to guide you through it step by step.
 
+**Option A — Use the GPT (easiest):**
+Open the [Claude Code Workshop Facilitator](https://chatgpt.com/g/g-69a04d49dea88191a996ad94471b35b4-claude-code-workshop-facilitator) GPT and start chatting.
+
+**Option B — Use any LLM:**
 1. Open any LLM chat (Claude, ChatGPT, etc.)
-2. Paste the contents of [`facilitator-prompt.md`](facilitator-prompt.md) as the system prompt or first message
-3. Follow the facilitator's instructions — it will walk you through each step, one at a time
-4. Do the actual work in a **separate Claude Code terminal session** — the facilitator tells you what to do there
+2. Paste the contents of [`docs/facilitator-prompt.md`](docs/facilitator-prompt.md) as the system prompt or first message
+3. Follow the facilitator's instructions
 
-The facilitator will guide you through the full pipeline: orientation, building a command, fetching requirements, planning, implementing with TDD, testing, shipping a PR, and reviewing it.
+In both cases, do the actual work in a **separate Claude Code terminal session** — the facilitator tells you what to do there.
 
 ### 3. Live Workshop
 
@@ -41,9 +44,9 @@ If you're running this as a live session, see [`docs/notes.md`](docs/notes.md) f
 
 ```
 ai-workshop/
-├── facilitator-prompt.md          # AI facilitator prompt for self-guided mode
 ├── docs/
 │   ├── notes.md                   # Full workshop plan (structure, timing, exercises)
+│   ├── facilitator-prompt.md      # AI facilitator prompt for self-guided mode
 │   ├── facilitator-checklist.md   # Quick-reference checklist for live facilitation
 │   ├── github-issue.md            # Issue #1 text (local copy)
 │   ├── notion-doc.md              # Design doc (Bookmarks Feature — Technical Notes)
