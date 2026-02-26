@@ -1,7 +1,7 @@
 import articleViewer from "./articleViewer";
 
 describe("articleViewer", () => {
-  test("Returns article with favorited=false when no currentUser provided", () => {
+  test("Returns article with favorited=false and bookmarked=false when no currentUser provided", () => {
     const mockAuthor = {
       username: "article-author",
       email: "author@example.com",
@@ -35,6 +35,7 @@ describe("articleViewer", () => {
       createdAt: mockArticle.createdAt,
       updatedAt: mockArticle.updatedAt,
       favorited: false,
+      bookmarked: false,
       favoritesCount: 5,
       author: {
         username: "article-author",
@@ -75,6 +76,7 @@ describe("articleViewer", () => {
       bio: null,
       image: null,
       favorites: [mockArticle],
+      bookmarks: [],
     };
 
     const result = articleViewer(mockArticle as any, currentUser as any);
@@ -88,6 +90,7 @@ describe("articleViewer", () => {
       createdAt: mockArticle.createdAt,
       updatedAt: mockArticle.updatedAt,
       favorited: true,
+      bookmarked: false,
       favoritesCount: 10,
       author: {
         username: "article-author",
@@ -141,6 +144,7 @@ describe("articleViewer", () => {
       bio: null,
       image: null,
       favorites: [otherArticle],
+      bookmarks: [],
     };
 
     const result = articleViewer(mockArticle as any, currentUser as any);
@@ -184,6 +188,7 @@ describe("articleViewer", () => {
       bio: null,
       image: null,
       favorites: [],
+      bookmarks: [],
     };
 
     const mockAuthor = {
@@ -267,5 +272,93 @@ describe("articleViewer", () => {
     const result = articleViewer(mockArticle as any);
 
     expect(result.favoritesCount).toBe(42);
+  });
+
+  test("Returns bookmarked=true when currentUser has bookmarked the article", () => {
+    const mockAuthor = {
+      username: "article-author",
+      email: "author@example.com",
+      password: "hashed-password",
+      bio: null,
+      image: null,
+      followedBy: [],
+    };
+
+    const mockArticle = {
+      slug: "bookmarked-article",
+      title: "Bookmarked Article",
+      description: "An article I bookmarked",
+      body: "Content",
+      tagList: [],
+      author: mockAuthor,
+      authorUsername: "article-author",
+      createdAt: new Date("2024-01-10T00:00:00Z"),
+      updatedAt: new Date("2024-01-10T00:00:00Z"),
+      _count: { favoritedBy: 0 },
+    };
+
+    const currentUser = {
+      username: "current-user",
+      email: "current@example.com",
+      password: "hashed",
+      bio: null,
+      image: null,
+      favorites: [],
+      bookmarks: [
+        {
+          username: "current-user",
+          articleSlug: "bookmarked-article",
+          bookmarkedAt: new Date("2024-01-10T00:00:00Z"),
+        },
+      ],
+    };
+
+    const result = articleViewer(mockArticle as any, currentUser as any);
+
+    expect(result.bookmarked).toBe(true);
+  });
+
+  test("Returns bookmarked=false when currentUser has bookmarks but not for this article", () => {
+    const mockAuthor = {
+      username: "article-author",
+      email: "author@example.com",
+      password: "hashed-password",
+      bio: null,
+      image: null,
+      followedBy: [],
+    };
+
+    const mockArticle = {
+      slug: "not-bookmarked-article",
+      title: "Not Bookmarked Article",
+      description: "An article I did not bookmark",
+      body: "Content",
+      tagList: [],
+      author: mockAuthor,
+      authorUsername: "article-author",
+      createdAt: new Date("2024-01-11T00:00:00Z"),
+      updatedAt: new Date("2024-01-11T00:00:00Z"),
+      _count: { favoritedBy: 0 },
+    };
+
+    const currentUser = {
+      username: "current-user",
+      email: "current@example.com",
+      password: "hashed",
+      bio: null,
+      image: null,
+      favorites: [],
+      bookmarks: [
+        {
+          username: "current-user",
+          articleSlug: "some-other-article",
+          bookmarkedAt: new Date("2024-01-11T00:00:00Z"),
+        },
+      ],
+    };
+
+    const result = articleViewer(mockArticle as any, currentUser as any);
+
+    expect(result.bookmarked).toBe(false);
   });
 });

@@ -62,4 +62,12 @@ router.delete(
   articles.articlesUnFavorite
 );
 
+router.post("/:slug/bookmark", auth.authenticate, articles.articlesBookmark);
+
+router.delete(
+  "/:slug/bookmark",
+  auth.authenticate,
+  articles.articlesUnBookmark
+);
+
 export default router;
