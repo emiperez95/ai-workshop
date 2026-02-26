@@ -35,13 +35,13 @@ The facilitator will guide you through the full pipeline: orientation, building 
 
 ### 3. Live Workshop
 
-If you're running this as a live session, see [`workshop-final.md`](workshop-final.md) for the full facilitator guide and [`docs/facilitator-checklist.md`](docs/facilitator-checklist.md) for a quick-reference checklist.
+If you're running this as a live session, see [`notes.md`](notes.md) for the full facilitator guide and [`docs/facilitator-checklist.md`](docs/facilitator-checklist.md) for a quick-reference checklist.
 
 ## Repo Structure
 
 ```
 ai-workshop/
-├── workshop-final.md              # Full workshop plan (structure, timing, exercises)
+├── notes.md              # Full workshop plan (structure, timing, exercises)
 ├── facilitator-prompt.md          # AI facilitator prompt for self-guided mode
 ├── docs/
 │   ├── facilitator-checklist.md   # Quick-reference checklist for live facilitation

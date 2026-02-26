@@ -58,7 +58,7 @@ A hands-on workshop to get 6-10 experienced engineers to adopt agentic AI (Claud
 
 ## Files in This Repo
 
-- `workshop-final.md` — **Current workshop plan** (structure, timing, exercises)
+- `notes.md` — **Current workshop plan** (structure, timing, exercises)
 - `facilitator-prompt.md` — AI facilitator prompt for self-guided workshop
 - `scripts/check-setup.sh` — Pre-workshop setup validator
 - `docs/` — Reference docs (GitHub issue, Notion design doc, promo image, backup board-status command)

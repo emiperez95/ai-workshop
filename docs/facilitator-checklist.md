@@ -1,6 +1,6 @@
 # Facilitator Checklist
 
-Quick reference for running the workshop. For full details see `workshop-final.md`.
+Quick reference for running the workshop. For full details see `notes.md`.
 
 ---
 
@@ -16,7 +16,7 @@ Quick reference for running the workshop. For full details see `workshop-final.m
 ## Day Of — Pre-Start
 
 - [ ] Confirm everyone ran `bash scripts/check-setup.sh` and all checks pass
-- [ ] Have the workshop-final.md open for reference
+- [ ] Have the notes.md open for reference
 
 ---
 
