@@ -16,7 +16,8 @@
     "test": "dotenv -e .env.development -- jest -i",
     "test:watch": "dotenv -e .env.development -- jest -i --watch --coverage=false",
     "postinstall": "prisma generate",
-    "seed": "dotenv -e .env.development -- npx tsx prisma/seed.ts"
+    "seed": "dotenv -e .env.development -- npx tsx prisma/seed.ts",
+    "db:check": "dotenv -e .env.development -- npx tsx prisma/check.ts"
   },
   "prisma": {
     "seed": "dotenv -e .env.development -- npx tsx prisma/seed.ts"
