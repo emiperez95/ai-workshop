@@ -5,4 +5,4 @@ coverage/
 logs/
 .DS_Store
 .env
-.claude/plans/
+.claude/
