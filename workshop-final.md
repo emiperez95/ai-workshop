@@ -167,7 +167,7 @@ Participants do this on their own, 3+ days before the workshop.
 
 **After the command works**: Tell them to run `/clear` to clean the conversation context — the next steps (working the ticket) are unrelated to command creation and they want a fresh context. Then exit Claude Code with `Ctrl+C` twice and resume with `claude -c` to start fresh with the cleared context.
 
-**Facilitator note**: Have `facilitator-backup/board-status.md` ready to drop in for anyone who gets stuck.
+**Facilitator note**: Have `docs/board-status.md` ready to drop in for anyone who gets stuck.
 
 ### Part 3: Work the Issue (60-70 min)
 
@@ -302,7 +302,7 @@ No specific timing — mention these whenever they come up naturally or when you
 - [x] Notion page created with technical design notes
 - [ ] Demo project tested end-to-end with Claude Code
 - [ ] Issue produces an imperfect first plan (verify the ambiguity works)
-- [ ] `facilitator-backup/board-status.md` ready
+- [ ] `docs/board-status.md` ready
 - [ ] Advanced setup ready for ceiling demo (agents, hooks, parallel sessions)
 
 ---
@@ -317,11 +317,10 @@ ai-workshop/
 ├── docs/
 │   ├── github-issue.md                # Issue #1 text (local copy)
 │   ├── notion-doc.md                  # Notion page text (design notes)
-│   └── promo.html                     # Promotional image template
+│   ├── promo.html                     # Promotional image template
+│   └── board-status.md                # Backup command if someone gets stuck
 ├── scripts/
 │   └── check-setup.sh                 # Pre-workshop setup validator
-├── facilitator-backup/
-│   └── board-status.md                # Backup command if someone gets stuck
 ├── demo-project/                      # The codebase participants work on
 │   ├── .claude/agents/                # Atlas + Minerva (pre-built)
 │   ├── .mcp.json                      # Notion MCP config
