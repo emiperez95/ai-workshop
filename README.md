@@ -36,9 +36,6 @@ Open the [Claude Code Workshop Facilitator](https://chatgpt.com/g/g-69a04d49dea8
 
 In both cases, do the actual work in a **separate Claude Code terminal session** — the facilitator tells you what to do there.
 
-### 3. Live Workshop
-
-If you're running this as a live session, see [`docs/notes.md`](docs/notes.md) for the full facilitator guide and [`docs/facilitator-checklist.md`](docs/facilitator-checklist.md) for a quick-reference checklist.
 
 ## Repo Structure
 
