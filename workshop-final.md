@@ -314,7 +314,10 @@ ai-workshop/
 ├── CLAUDE.md                          # Project instructions
 ├── workshop-final.md                  # This file — the workshop plan
 ├── facilitator-prompt.md              # AI facilitator for self-guided workshop
-├── notion-doc.md                      # Notion page text (design notes)
+├── docs/
+│   ├── github-issue.md                # Issue #1 text (local copy)
+│   ├── notion-doc.md                  # Notion page text (design notes)
+│   └── promo.html                     # Promotional image template
 ├── scripts/
 │   └── check-setup.sh                 # Pre-workshop setup validator
 ├── facilitator-backup/
