@@ -17,6 +17,7 @@ async function main() {
   }
 
   // Clear all data (order matters for FK constraints)
+  await prisma.bookmark.deleteMany();
   await prisma.comment.deleteMany();
   await prisma.article.deleteMany();
   await prisma.tag.deleteMany();
@@ -372,11 +373,42 @@ async function main() {
 
   console.log("Created favorite relationships.");
 
+  // --- Bookmarks ---
+  const bookmarks = await Promise.all([
+    prisma.bookmark.create({
+      data: { username: jake.username, articleSlug: articles[3].slug },
+    }),
+    prisma.bookmark.create({
+      data: { username: jake.username, articleSlug: articles[7].slug },
+    }),
+    prisma.bookmark.create({
+      data: { username: sarah.username, articleSlug: articles[2].slug },
+    }),
+    prisma.bookmark.create({
+      data: { username: sarah.username, articleSlug: articles[6].slug },
+    }),
+    prisma.bookmark.create({
+      data: { username: mike.username, articleSlug: articles[1].slug },
+    }),
+    prisma.bookmark.create({
+      data: { username: mike.username, articleSlug: articles[9].slug },
+    }),
+    prisma.bookmark.create({
+      data: { username: anna.username, articleSlug: articles[4].slug },
+    }),
+    prisma.bookmark.create({
+      data: { username: anna.username, articleSlug: articles[8].slug },
+    }),
+  ]);
+
+  console.log(`Created ${bookmarks.length} bookmarks.`);
+
   console.log("\nSeed complete! Summary:");
   console.log("  - 5 users (jake, sarah, mike, anna, demo)");
   console.log(`  - ${articles.length} articles with tags`);
   console.log(`  - ${comments.length} comments`);
-  console.log("  - Follow and favorite relationships");
+  console.log(`  - ${bookmarks.length} bookmarks`);
+  console.log("  - Follow, favorite, and bookmark relationships");
   console.log("\nAll passwords: password123");
 }
 

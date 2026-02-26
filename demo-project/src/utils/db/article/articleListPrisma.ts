@@ -4,6 +4,7 @@ export default async function articlesListPrisma(
   tag?: string,
   authorUsername?: string,
   favorited?: string,
+  bookmarked?: string,
   limit = 20,
   offset = 0
 ) {
@@ -12,6 +13,7 @@ export default async function articlesListPrisma(
       authorUsername,
       tagList: tag ? { some: { tagName: tag } } : undefined,
       favoritedBy: favorited ? { some: { username: favorited } } : undefined,
+      bookmarkedBy: bookmarked ? { some: { username: bookmarked } } : undefined,
     },
     take: limit,
     skip: offset,

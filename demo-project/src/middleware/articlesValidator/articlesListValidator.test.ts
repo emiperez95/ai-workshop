@@ -150,4 +150,26 @@ describe("Test articlesListValidator", function () {
     await articlesListValidator(mockReq, mockRes as unknown as Response, next);
     expect(next).toHaveBeenCalled();
   });
+
+  test("Valid request with bookmarked filter", async function () {
+    const mockReq = {
+      query: { bookmarked: "test-user" },
+    } as unknown as Request;
+    const mockRes = mockResponse();
+    const next = jest.fn();
+    await articlesListValidator(mockReq, mockRes as unknown as Response, next);
+    expect(next).toHaveBeenCalled();
+  });
+
+  test("Bookmarked is not a string", async function () {
+    const mockReq = {
+      query: { bookmarked: 123 },
+    } as unknown as Request;
+    const mockRes = mockResponse();
+    const next = jest.fn();
+    await articlesListValidator(mockReq, mockRes as unknown as Response, next);
+    expect(mockRes.json).toHaveBeenCalled();
+    const callArg = mockRes.json.mock.calls[0][0];
+    expect(callArg.errors.query).toContain("bookmarked must be a string");
+  });
 });
