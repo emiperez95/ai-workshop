@@ -1,8 +1,11 @@
+import path from "path";
 import { PrismaClient } from "@prisma/client";
 import { hashPassword } from "../src/utils/hashPasswords";
 import slugfy from "../src/utils/slugfy";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: { db: { url: `file:${path.join(__dirname, "dev.db")}` } },
+});
 const force = process.argv.includes("--force");
 
 async function main() {

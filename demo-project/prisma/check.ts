@@ -1,6 +1,9 @@
+import path from "path";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: { db: { url: `file:${path.join(__dirname, "dev.db")}` } },
+});
 
 async function main() {
   const users = await prisma.user.findMany({
