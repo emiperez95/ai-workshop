@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as articles from "../../controllers/articlesController";
+import * as bookmark from "../../controllers/bookmarkController";
 import * as comments from "../../controllers/commentsController";
 import * as validator from "../../middleware/articlesValidator";
 import commentCreateValidator from "../../middleware/commentsValidator/commentCreateValidator";
@@ -60,6 +61,14 @@ router.delete(
   "/:slug/favorite",
   auth.authenticate,
   articles.articlesUnFavorite
+);
+
+router.post("/:slug/bookmark", auth.authenticate, bookmark.articlesBookmark);
+
+router.delete(
+  "/:slug/bookmark",
+  auth.authenticate,
+  bookmark.articlesUnBookmark
 );
 
 export default router;

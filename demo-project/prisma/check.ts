@@ -7,7 +7,7 @@ const prisma = new PrismaClient({
 
 async function main() {
   const users = await prisma.user.findMany({
-    select: { username: true, _count: { select: { authored: true, favorites: true, comment: true } } },
+    select: { username: true, _count: { select: { authored: true, favorites: true, comment: true, bookmarks: true } } },
   });
   const articles = await prisma.article.findMany({
     select: { title: true, authorUsername: true, _count: { select: { favoritedBy: true, comments: true } }, tagList: { select: { tagName: true } } },
@@ -20,7 +20,7 @@ async function main() {
   // Users
   console.log(`Users (${users.length}):`);
   for (const u of users) {
-    const parts = [`${u._count.authored} articles`, `${u._count.favorites} favorites`, `${u._count.comment} comments`];
+    const parts = [`${u._count.authored} articles`, `${u._count.favorites} favorites`, `${u._count.comment} comments`, `${u._count.bookmarks} bookmarks`];
     console.log(`  @${u.username.padEnd(8)} ${parts.join(", ")}`);
   }
 
@@ -35,20 +35,25 @@ async function main() {
   // Tags
   console.log(`\nTags (${tags.length}): ${tags.map((t) => t.tagName).join(", ")}`);
 
-  // Bookmarks — detect if table exists (participants add this during the workshop)
-  try {
-    const tables: { name: string }[] = await prisma.$queryRawUnsafe(
-      `SELECT name FROM sqlite_master WHERE type='table' AND name='Bookmark'`
-    );
-    if (tables.length > 0) {
-      const rows: { count: bigint }[] = await prisma.$queryRawUnsafe(
-        `SELECT COUNT(*) as count FROM Bookmark`
-      );
-      const count = Number(rows[0].count);
-      console.log(`\nBookmarks: ${count > 0 ? `${count} total` : "table exists, none yet — try bookmarking an article!"}`);
+  // Bookmarks
+  const bookmarks = await prisma.bookmark.findMany({
+    select: { username: true, article: { select: { title: true } }, bookmarkedAt: true },
+    orderBy: [{ username: "asc" }, { bookmarkedAt: "asc" }],
+  });
+
+  const totalBookmarks = bookmarks.length;
+  console.log(`\nBookmarks (${totalBookmarks} total):`);
+  if (totalBookmarks === 0) {
+    console.log("  none yet — try bookmarking an article!");
+  } else {
+    const byUser = new Map<string, string[]>();
+    for (const b of bookmarks) {
+      if (!byUser.has(b.username)) byUser.set(b.username, []);
+      byUser.get(b.username)!.push(`"${b.article.title}"`);
     }
-  } catch {
-    // Bookmark table doesn't exist yet — that's fine
+    for (const [username, titles] of byUser) {
+      console.log(`  @${username}: ${titles.join(", ")}`);
+    }
   }
 
   console.log("");
