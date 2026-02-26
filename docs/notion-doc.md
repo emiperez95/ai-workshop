@@ -19,6 +19,7 @@ We talked about two approaches:
 2. Dedicated Bookmark model with its own fields
 
 Going with **option 2 — dedicated model**. Reasons:
+
 - We'll want `bookmarkedAt` for sorting (mobile team needs this)
 - Collections/folders are on the roadmap for Q3, a dedicated model makes that migration much simpler — we'd just add a nullable `collectionId` foreign key later
 - Keeps bookmark logic decoupled from the favorites system
@@ -26,6 +27,7 @@ Going with **option 2 — dedicated model**. Reasons:
 ### Endpoint conventions
 
 Reminder for whoever picks this up — we follow the existing patterns in the codebase:
+
 - Action endpoints go under the resource: `/api/articles/:slug/bookmark` (POST to add, DELETE to remove)
 - Listing bookmarked articles should use the existing articles list endpoint with a filter param, not a new top-level route
 - Response format should extend the existing article response, don't create a new shape

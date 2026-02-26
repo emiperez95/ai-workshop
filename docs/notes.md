@@ -3,18 +3,23 @@
 ## Workshop Definition
 
 ### Objective
+
 Get 6-10 experienced engineers to adopt agentic AI (Claude Code) as part of their daily workflow by working a GitHub issue through a full issue-to-PR pipeline.
 
 ### The Audience
+
 Good engineers who use Cursor/Copilot for suggestions and sidebar chat. Some are enthusiastic, some aren't particularly interested. Most have tried AI tools and have a working relationship with them — but mainly for autocomplete and quick questions.
 
 **They won't be convinced by a pitch or a demo.** They need to try it themselves on real-feeling tasks and form their own opinion.
 
 ### Core Strategy
+
 Give them a real workflow — not toy exercises. One GitHub issue, worked from start to finish: fetch the issue, read the design doc, plan the implementation, write the code, review it, ship it. They do the whole thing with Claude Code. No comparisons, no proving a point.
 
 ### Desired Outcome
+
 Every participant leaves having:
+
 1. **Worked a full issue** — from GitHub issue to PR, using Claude Code for every step
 2. **Steered the AI** — read a plan, pushed back, refined the approach through discussion
 3. **Built something** — created their own `/board-status` command, so they understand how to extend the tool
@@ -22,6 +27,7 @@ Every participant leaves having:
 5. **Seen the ceiling** — a brief look at what advanced workflows look like
 
 ### Format
+
 - **Duration**: ~1.5 hours
 - **Group**: 6-10 engineers
 - **Style**: Hands-on workshop — they do the work, you facilitate
@@ -32,9 +38,11 @@ Every participant leaves having:
 ## Demo Project
 
 ### What It Is
+
 A fork of the [RealWorld](https://github.com/gothinkster/realworld) "Medium clone" API — a blog platform with users, articles, comments, tags, follows, and favorites.
 
 ### Tech Stack
+
 - **Runtime**: Node.js + TypeScript
 - **Framework**: Express
 - **ORM**: Prisma 5
@@ -42,6 +50,7 @@ A fork of the [RealWorld](https://github.com/gothinkster/realworld) "Medium clon
 - **Tests**: Jest (100 tests, fully mocked — no DB needed)
 
 ### Why This Project
+
 - Domain is universally understood (blog platform)
 - Architecture is clear: route → validator → auth → controller → prisma query → viewer
 - Adding a feature touches 5-7 files across the whole stack
@@ -49,6 +58,7 @@ A fork of the [RealWorld](https://github.com/gothinkster/realworld) "Medium clon
 - Existing patterns (favorites, follows) serve as templates for new features
 
 ### Zero-Config Setup
+
 ```bash
 git clone [repo-url]
 cd demo-project
@@ -58,6 +68,7 @@ npm run develop      # creates SQLite DB + compiles + starts server on :3000
 ```
 
 ### What's Pre-Built in the Repo
+
 ```
 demo-project/
 ├── .claude/
@@ -84,12 +95,14 @@ demo-project/
 **Description**: Users want to save articles for later. Separate from favorites (which are more like "likes"). Should work similar to favorites but be independent.
 
 **Acceptance Criteria**:
+
 - Users can bookmark and unbookmark articles
 - There should be a way to get a user's bookmarked articles
 - Article responses should indicate bookmark status
 - Bookmarking requires authentication
 
 **PO Notes** (intentionally ambiguous):
+
 - Bookmark count on articles — "not sure if we need that for v1, up to you"
 - Folders/collections — "Sarah wants this at some point, keep it in mind"
 - `bookmarkedAt` timestamp — "mobile team wants this for sorting"
@@ -157,9 +170,11 @@ Participants do this on their own, 3+ days before the workshop.
 **Why**: It's quick (one `.md` file), produces visible output, and teaches how commands work. It's also the first step in the pipeline they're about to use.
 
 **Instructions** (on screen or printed):
+
 > "Create a Claude Code command called `/board-status` that shows open issues in the repo, grouped by label. You'll need a file at `.claude/commands/board-status.md`. The GitHub CLI is `gh` — ask Claude to help you figure out the right command."
 
 **What they'll experience**:
+
 - Claude helps them write the command file
 - They test it: `/board-status`
 - They see the issues, spot issue #1
@@ -176,19 +191,23 @@ Participants do this on their own, 3+ days before the workshop.
 **The pipeline they follow**:
 
 #### Step 1: Fetch the issue (~5 min)
+
 > "Ask Claude to look at issue #1"
 
 Atlas agent automatically fetches the issue details, acceptance criteria, and PO notes. They read the requirements.
 
 #### Step 2: Fetch the design doc (~5 min)
+
 > "The issue links to a Notion doc. Ask Claude to fetch it."
 
 Minerva agent fetches the technical design notes from Notion. Now they have the full context — and the tension between "similar to favorites" (issue) vs. "dedicated model" (Notion doc).
 
 #### Step 3: Plan the implementation (~15 min)
+
 > "Ask Claude to plan the implementation. Read the plan carefully — do you agree with the approach?"
 
 This is the core learning moment. Claude will propose a plan. Participants should:
+
 - Read it critically
 - Notice if it contradicts the Notion doc
 - Push back on design decisions
@@ -199,14 +218,17 @@ This is the core learning moment. Claude will propose a plan. Participants shoul
 **Facilitator tip**: Walk around during this phase. If someone just approves the plan without reading it, nudge them: "What approach did it pick for the data model? Does that match what the design doc says?" Once they move to TDD, nudge: "Do the test cases cover edge cases like bookmarking an already-bookmarked article? Unauthorized access?"
 
 #### Step 4: Implement (~15-20 min)
+
 > "Approve the plan and let Claude implement it."
 
 Claude writes the tests first (they should fail), then the implementation to make them pass. They approve each step and watch the red-green cycle.
 
 #### Step 5: Test the feature (~5 min)
+
 > "Start the server and try the feature you just built."
 
 If the server isn't still running, ask Claude to start it with `npm run develop`. Then test the bookmark endpoints manually with `curl` or ask Claude to do it:
+
 - Create a user and log in to get a token
 - Bookmark an article
 - List bookmarked articles
@@ -217,11 +239,13 @@ This is the moment they see the feature working end-to-end — not just tests pa
 **Facilitator tip**: If someone skips this, nudge them: "Tests passing is great, but have you actually tried the API? Fire up the server and hit the endpoints."
 
 #### Step 6: Ship to a PR (~5 min)
+
 > "Commit the work and create a PR on a feature branch."
 
 Ask Claude to commit the changes and create a PR on a feature branch. Claude can handle git natively — no plugin needed.
 
 #### Step 7: Review the PR (~10 min)
+
 > "Clear context, start a fresh session, and review the PR."
 
 Tell them to run `/clear`, then exit with `Ctrl+C` twice and start a new session with `claude`. Now they install the code review plugin and review the PR from a clean context:
@@ -230,6 +254,7 @@ They install: `/plugin install code-review@claude-plugins-official`
 Then run the review against the PR. This is more realistic than reviewing in the same session — in real work, reviews happen separately from implementation. Claude reviews the diff with fresh eyes and flags issues. They fix any action items.
 
 ### Part 4: The Ceiling (10 min)
+
 **Format**: Brief show-and-tell. Facilitator shares screen.
 
 Now that they've experienced the pipeline firsthand, show where it goes:
@@ -242,11 +267,13 @@ Now that they've experienced the pipeline firsthand, show where it goes:
 **Keep it to 10 minutes.** The message: "What you did today is the foundation. There's more depth if you keep using it."
 
 ### Part 5: Debrief + Q&A (10 min)
+
 **Format**: Open discussion.
 
 Start with: "What surprised you? What frustrated you?"
 
 Let it flow naturally. Likely topics:
+
 - **"The plan was wrong."** Good — that's why you read it. How did you steer it?
 - **"It wanted to do X but the Notion doc said Y."** Exactly — context matters. The more context you give it, the better it gets.
 - **"How do I know what it changed?"** Git diff. Same as reviewing anyone else's code.
@@ -290,7 +317,9 @@ No specific timing — mention these whenever they come up naturally or when you
 > If you get stuck, ping me before the workshop.
 
 ### Setup Checker
+
 `scripts/check-setup.sh` validates everything in one run:
+
 - Claude Code >= 2.0.0 (+ node/npm if Claude missing)
 - git, gh + auth
 - Notion MCP configured + authenticated
@@ -298,6 +327,7 @@ No specific timing — mention these whenever they come up naturally or when you
 - Demo repo accessible (if configured)
 
 ### For facilitator:
+
 - [x] GitHub issue created (#1: Add bookmarks)
 - [x] Notion page created with technical design notes
 - [ ] Demo project tested end-to-end with Claude Code

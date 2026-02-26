@@ -15,6 +15,7 @@ gh issue list --repo $1 --state open --json number,title,state,labels,assignees 
 Parse the JSON output and display the issues grouped by label (e.g., "enhancement", "bug", "documentation"). Issues without labels go under "Unlabeled".
 
 Format each issue as:
+
 ```
 #[NUMBER] Title (Assignee)
 ```

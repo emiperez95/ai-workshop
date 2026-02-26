@@ -23,10 +23,12 @@ Quick reference for running the workshop. For full details see `docs/notes.md`.
 ## Part 1: Framing + Orientation (15 min)
 
 ### Framing (5 min)
+
 - [ ] Explain the difference: "It can execute — not just suggest"
 - [ ] Set expectations: "One GitHub issue, start to finish"
 
 ### Orientation (10 min)
+
 - [ ] Everyone runs `cd demo-project && claude`
 - [ ] Everyone runs `/init` — glance at the generated CLAUDE.md
 - [ ] Quick explanation: natural language in, actions out, permission prompts
@@ -44,15 +46,18 @@ Quick reference for running the workshop. For full details see `docs/notes.md`.
 ## Part 3: Work the Issue (60-70 min)
 
 ### Step 1: Fetch the issue (~5 min)
+
 - [ ] "Ask Claude to look at issue #1"
 - [ ] They read the requirements — AC, PO notes, ambiguities
 
 ### Step 2: Fetch the design doc (~5 min)
+
 - [ ] "Ask Claude to fetch 'Bookmarks Feature — Technical Notes' from Notion"
 - [ ] Ask: "How does the design doc compare to the issue?"
 - [ ] Guide to the tension: "similar to favorites" vs. "dedicated model"
 
 ### Step 3: Plan the implementation (~15 min)
+
 - [ ] "Ask Claude to plan the implementation. Read the plan carefully."
 - [ ] **Don't let them skip this.** Walk around and check.
 - [ ] Ask one at a time:
@@ -66,21 +71,25 @@ Quick reference for running the workshop. For full details see `docs/notes.md`.
 - [ ] Encourage pushback: "This back-and-forth is the real skill"
 
 ### Step 4: Implement (~15-20 min)
+
 - [ ] "Approve the plan and let Claude implement"
 - [ ] They watch the TDD cycle: tests fail → implementation → tests pass
 - [ ] If something looks wrong, they can course-correct mid-build
 - [ ] Run all tests — originals + new should pass
 
 ### Step 5: Test the feature (~5 min)
+
 - [ ] "Start the server if not running, try the endpoints"
 - [ ] Test manually with curl: bookmark, list, unbookmark
 - [ ] Nudge if they skip: "Tests pass, but have you actually hit the API?"
 
 ### Step 6: Ship to a PR (~5 min)
+
 - [ ] "Ask Claude to commit and create a PR on a feature branch"
 - [ ] Claude handles git natively — no plugin needed
 
 ### Step 7: Review the PR (~10 min)
+
 - [ ] `/clear` → `Ctrl+C` twice → `claude` (fresh session)
 - [ ] Install: `/plugin install code-review@claude-plugins-official`
 - [ ] Run the review against the PR
@@ -111,14 +120,14 @@ Quick reference for running the workshop. For full details see `docs/notes.md`.
 
 Use these whenever relevant — no specific timing:
 
-| Tip | When to mention |
-|-----|-----------------|
-| `Esc` twice → history/rollback | When they make a mistake or want to undo |
-| `/context` → see loaded context | When they ask "what does Claude know?" |
-| `/model` → switch models | When something is slow or too simple for Opus |
-| `/permissions` → debug permissions | When permission prompts are confusing |
-| Hooks for auto-allow | When permission prompts slow them down |
-| `/clear` → clean context | When switching tasks |
-| `/rename` → name the session | When they have multiple sessions |
-| `claude -c` vs `claude -r` | When resuming work (-c keeps context, -r fresh start) |
-| `--dangerously-skip-permissions` | For advanced users wanting full automation |
+| Tip                                | When to mention                                       |
+| ---------------------------------- | ----------------------------------------------------- |
+| `Esc` twice → history/rollback     | When they make a mistake or want to undo              |
+| `/context` → see loaded context    | When they ask "what does Claude know?"                |
+| `/model` → switch models           | When something is slow or too simple for Opus         |
+| `/permissions` → debug permissions | When permission prompts are confusing                 |
+| Hooks for auto-allow               | When permission prompts slow them down                |
+| `/clear` → clean context           | When switching tasks                                  |
+| `/rename` → name the session       | When they have multiple sessions                      |
+| `claude -c` vs `claude -r`         | When resuming work (-c keeps context, -r fresh start) |
+| `--dangerously-skip-permissions`   | For advanced users wanting full automation            |
