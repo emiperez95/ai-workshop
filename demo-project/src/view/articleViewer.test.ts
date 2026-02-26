@@ -36,6 +36,7 @@ describe("articleViewer", () => {
       updatedAt: mockArticle.updatedAt,
       favorited: false,
       favoritesCount: 5,
+      bookmarked: false,
       author: {
         username: "article-author",
         bio: "I write articles",
@@ -75,6 +76,7 @@ describe("articleViewer", () => {
       bio: null,
       image: null,
       favorites: [mockArticle],
+      bookmarks: [],
     };
 
     const result = articleViewer(mockArticle as any, currentUser as any);
@@ -89,6 +91,7 @@ describe("articleViewer", () => {
       updatedAt: mockArticle.updatedAt,
       favorited: true,
       favoritesCount: 10,
+      bookmarked: false,
       author: {
         username: "article-author",
         bio: "I write articles",
@@ -141,6 +144,7 @@ describe("articleViewer", () => {
       bio: null,
       image: null,
       favorites: [otherArticle],
+      bookmarks: [],
     };
 
     const result = articleViewer(mockArticle as any, currentUser as any);
@@ -184,6 +188,7 @@ describe("articleViewer", () => {
       bio: null,
       image: null,
       favorites: [],
+      bookmarks: [],
     };
 
     const mockAuthor = {
@@ -239,6 +244,82 @@ describe("articleViewer", () => {
     const result = articleViewer(mockArticle as any);
 
     expect(result.tagList).toEqual([]);
+  });
+
+  test("Returns bookmarked=true when currentUser has bookmarked the article", () => {
+    const mockAuthor = {
+      username: "article-author",
+      email: "author@example.com",
+      password: "hashed-password",
+      bio: null,
+      image: null,
+      followedBy: [],
+    };
+
+    const mockArticle = {
+      slug: "bookmarked-article",
+      title: "Bookmarked Article",
+      description: "An article I saved",
+      body: "Content",
+      tagList: [],
+      author: mockAuthor,
+      authorUsername: "article-author",
+      createdAt: new Date("2024-01-10T00:00:00Z"),
+      updatedAt: new Date("2024-01-10T00:00:00Z"),
+      _count: { favoritedBy: 0 },
+    };
+
+    const currentUser = {
+      username: "current-user",
+      email: "current@example.com",
+      password: "hashed",
+      bio: null,
+      image: null,
+      favorites: [],
+      bookmarks: [{ id: 1, username: "current-user", slug: "bookmarked-article", bookmarkedAt: new Date() }],
+    };
+
+    const result = articleViewer(mockArticle as any, currentUser as any);
+
+    expect(result.bookmarked).toBe(true);
+  });
+
+  test("Returns bookmarked=false when currentUser has not bookmarked the article", () => {
+    const mockAuthor = {
+      username: "article-author",
+      email: "author@example.com",
+      password: "hashed-password",
+      bio: null,
+      image: null,
+      followedBy: [],
+    };
+
+    const mockArticle = {
+      slug: "not-bookmarked-article",
+      title: "Not Bookmarked",
+      description: "desc",
+      body: "body",
+      tagList: [],
+      author: mockAuthor,
+      authorUsername: "article-author",
+      createdAt: new Date("2024-01-11T00:00:00Z"),
+      updatedAt: new Date("2024-01-11T00:00:00Z"),
+      _count: { favoritedBy: 0 },
+    };
+
+    const currentUser = {
+      username: "current-user",
+      email: "current@example.com",
+      password: "hashed",
+      bio: null,
+      image: null,
+      favorites: [],
+      bookmarks: [],
+    };
+
+    const result = articleViewer(mockArticle as any, currentUser as any);
+
+    expect(result.bookmarked).toBe(false);
   });
 
   test("Includes correct favoritesCount from _count field", () => {

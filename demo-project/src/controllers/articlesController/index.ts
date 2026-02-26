@@ -6,3 +6,5 @@ export { default as articlesDelete } from "./articlesDelete";
 export { default as articlesFeed } from "./articlesFeed";
 export { default as articlesFavorite } from "./articlesFavorite";
 export { default as articlesUnFavorite } from "./articlesUnFavorite";
+export { default as articlesBookmark } from "./articlesBookmark";
+export { default as articlesUnBookmark } from "./articlesUnBookmark";
