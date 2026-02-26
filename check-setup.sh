@@ -14,7 +14,7 @@ DEFAULT_REPO="emiperez95/ai-workshop"
 MIN_CLAUDE_VERSION="2.0.0"
 MIN_NODE_VERSION=18
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DEMO_PROJECT_DIR="$SCRIPT_DIR/../demo-project"
+DEMO_PROJECT_DIR="$SCRIPT_DIR/demo-project"
 
 # ── Parse arguments ──────────────────────────────────────────────────
 REPO="${WORKSHOP_REPO:-$DEFAULT_REPO}"

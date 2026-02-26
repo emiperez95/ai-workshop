@@ -15,7 +15,7 @@ Quick reference for running the workshop. For full details see `docs/notes.md`.
 
 ## Day Of — Pre-Start
 
-- [ ] Confirm everyone ran `bash scripts/check-setup.sh` and all checks pass
+- [ ] Confirm everyone ran `bash check-setup.sh` and all checks pass
 - [ ] Have the notes.md open for reference
 
 ---

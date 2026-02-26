@@ -131,7 +131,7 @@ Participants do this on their own, 3+ days before the workshop.
 
 1. Install the tools: Claude Code, gh
 2. Clone the repo: `git clone [repo-url]`
-3. Run the setup checker: `bash scripts/check-setup.sh`
+3. Run the setup checker: `bash check-setup.sh`
    - Validates: Claude Code, git, gh + auth, Notion MCP, npm install, tests pass
 4. Fix any failures using the hints in the output
 5. If stuck, ping the facilitator before the workshop
@@ -311,14 +311,14 @@ No specific timing — mention these whenever they come up naturally or when you
 > 2. Run `claude` once to authenticate (opens browser)
 > 3. Install GitHub CLI: `brew install gh` → `gh auth login`
 > 4. Clone the workshop repo: `git clone [repo-url]`
-> 5. Run the checker: `bash scripts/check-setup.sh`
+> 5. Run the checker: `bash check-setup.sh`
 > 6. Fix any failures using the hints — run the script again until everything passes
 >
 > If you get stuck, ping me before the workshop.
 
 ### Setup Checker
 
-`scripts/check-setup.sh` validates everything in one run:
+`check-setup.sh` validates everything in one run:
 
 - Claude Code >= 2.0.0 (+ node/npm if Claude missing)
 - git, gh + auth
@@ -349,8 +349,7 @@ ai-workshop/
 │   ├── notion-doc.md                  # Notion page text (design notes)
 │   ├── promo.html                     # Promotional image template
 │   └── board-status.md                # Backup command if someone gets stuck
-├── scripts/
-│   └── check-setup.sh                 # Pre-workshop setup validator
+├── check-setup.sh                     # Pre-workshop setup validator
 ├── demo-project/                      # The codebase participants work on
 │   ├── .claude/agents/                # Atlas + Minerva (pre-built)
 │   ├── .mcp.json                      # Notion MCP config

@@ -67,7 +67,7 @@ Once they have it, tell them to run the setup checker from their regular termina
 
 ```
 cd ai-workshop
-bash scripts/check-setup.sh
+bash check-setup.sh
 ```
 
 This checks: Claude Code (>= 2.0.0), git, GitHub CLI + auth, Notion MCP, demo project dependencies, and tests (100 should pass).
@@ -280,7 +280,7 @@ If the participant hits issues, here are common fixes:
 
 | Problem                                     | Fix                                                                                        |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Can't access GitHub issue                   | Run `bash scripts/check-setup.sh` to verify `gh` auth                                      |
+| Can't access GitHub issue                   | Run `bash check-setup.sh` to verify `gh` auth                                      |
 | Can't access Notion                         | Reconnect MCP: `claude mcp add -s local notion --transport sse https://mcp.notion.com/sse` |
 | Tests fail after implementation             | Ask Claude Code to look at failures and fix them — this is normal                          |
 | Plan is completely wrong                    | Tell Claude Code to start the plan over, describe the approach they want                   |

@@ -17,7 +17,7 @@ npm install -g @anthropic-ai/claude-code
 brew install gh && gh auth login
 git clone https://github.com/emiperez95/ai-workshop.git
 cd ai-workshop
-bash scripts/check-setup.sh
+bash check-setup.sh
 ```
 
 Fix any failures using the hints in the output. Run the script again until everything passes.
@@ -49,8 +49,7 @@ ai-workshop/
 │   ├── notion-doc.md              # Design doc (Bookmarks Feature — Technical Notes)
 │   ├── board-status.md            # Backup /board-status command
 │   └── promo.html                 # Promotional image template
-├── scripts/
-│   └── check-setup.sh            # Pre-workshop setup validator
+├── check-setup.sh                 # Pre-workshop setup validator
 └── demo-project/                  # The codebase participants work on
     ├── .claude/agents/            # Atlas (GitHub) + Minerva (Notion) agents
     ├── .mcp.json                  # Notion MCP config
