@@ -1,6 +1,6 @@
 # Facilitator Checklist
 
-Quick reference for running the workshop. For full details see `docs/notes.md`.
+Quick reference for running the workshop. For full details see `facilitator-prompt.md`.
 
 ---
 
@@ -16,118 +16,99 @@ Quick reference for running the workshop. For full details see `docs/notes.md`.
 ## Day Of — Pre-Start
 
 - [ ] Confirm everyone ran `bash check-setup.sh` and all checks pass
-- [ ] Have the notes.md open for reference
+- [ ] Have the facilitator-prompt.md open for reference
 
 ---
 
-## Part 1: Framing + Orientation (15 min)
+## Step 0: Setup (10 min)
 
-### Framing (5 min)
+- [ ] Clone repo: `git clone https://github.com/emiperez95/ai-workshop.git`
+- [ ] Run: `bash check-setup.sh` — all checks should pass
+- [ ] Troubleshoot any failures using the script's fix hints
 
-- [ ] Explain the difference: "It can execute — not just suggest"
-- [ ] Set expectations: "One GitHub issue, start to finish"
-
-### Orientation (10 min)
+## Step 1: Orientation (10 min)
 
 - [ ] Everyone runs `cd demo-project && claude`
 - [ ] Everyone runs `/init` — glance at the generated CLAUDE.md
+- [ ] Add convention to CLAUDE.md: "When adding features, update `prisma/seed.ts` with sample data and `prisma/check.ts` to display the new data"
 - [ ] Quick explanation: natural language in, actions out, permission prompts
 - [ ] Start the server: `npm run develop`
-- [ ] Verify it works: `curl http://localhost:3000/api/articles`
+- [ ] Check the database: `npm run db:check` — 5 users, 10 articles, tags
+- [ ] Verify the API: `curl http://localhost:3000/api/articles`
 - [ ] "Keep the server running"
 
-## Part 2: Build a Command (15 min)
+## Step 2: Build a Command (15 min)
 
 - [ ] Instruct: "Create `/board-status` — file at `.claude/commands/board-status.md`, shows open issues grouped by label, uses `gh`"
+- [ ] Restart Claude Code for new command: `Ctrl+C` twice → `claude -c`
 - [ ] They test with `/board-status` and spot issue #1
 - [ ] If stuck after 10 min → drop in `docs/board-status.md` backup
-- [ ] After it works: `/clear` → `Ctrl+C` twice → `claude -c`
+- [ ] After it works: `/clear` to clean context
 
-## Part 3: Work the Issue (60-70 min)
+## Step 3: Gather Context & Plan (20 min)
 
-### Step 1: Fetch the issue (~5 min)
-
-- [ ] "Ask Claude to look at issue #1"
-- [ ] They read the requirements — AC, PO notes, ambiguities
-
-### Step 2: Fetch the design doc (~5 min)
-
-- [ ] "Ask Claude to fetch 'Bookmarks Feature — Technical Notes' from Notion"
-- [ ] Ask: "How does the design doc compare to the issue?"
-- [ ] Guide to the tension: "similar to favorites" vs. "dedicated model"
-
-### Step 3: Plan the implementation (~15 min)
-
-- [ ] "Ask Claude to plan the implementation. Read the plan carefully."
-- [ ] **Don't let them skip this.** Walk around and check.
-- [ ] Ask one at a time:
-  - "What data model did Claude pick?" → should be dedicated model per Notion doc
-  - "Did it include bookmark count?" → PO unsure, doc says skip for v1
-  - "What endpoints did it propose?" → doc says action under resource, filter on existing list
-  - "Did it over-engineer anything?" → folders/collections are out of scope
+- [ ] "Ask Claude to look at issue #1, fetch the linked Notion design doc, and plan the implementation"
+- [ ] Watch agents work: Atlas fetches issue, Minerva fetches Notion doc, Claude plans
+- [ ] Key word is "plan" — triggers plan mode. `Shift+Tab` also toggles it. If Claude starts coding, press Escape.
+- [ ] **Don't let them skip the plan review.** Walk around and check.
+- [ ] Tell them what to check for:
+  - Data model → should be dedicated Bookmark model per Notion doc, not many-to-many
+  - Bookmark count → PO unsure, doc says skip for v1
+  - Endpoints → action under resource (`POST/DELETE /api/articles/:slug/bookmark`), filter on existing list
+  - Scope creep → folders/collections are out of scope
 - [ ] After architecture settles: "Also plan the test cases — TDD, tests first"
-- [ ] Review test cases:
-  - "Do they cover edge cases? Already bookmarked? Unauthorized? Non-existent article?"
+- [ ] Point out edge cases: already bookmarked? unauthorized? non-existent article?
 - [ ] Encourage pushback: "This back-and-forth is the real skill"
 
-### Step 4: Implement (~15-20 min)
+## Step 4: Implement (15-20 min)
 
 - [ ] "Approve the plan and let Claude implement"
 - [ ] They watch the TDD cycle: tests fail → implementation → tests pass
 - [ ] If something looks wrong, they can course-correct mid-build
 - [ ] Run all tests — originals + new should pass
 
-### Step 5: Test the feature (~5 min)
+## Step 5: Test the Feature (5 min)
 
-- [ ] "Start the server if not running, try the endpoints"
-- [ ] Test manually with curl: bookmark, list, unbookmark
+- [ ] "Start the server if not running (`npm run develop`), try the endpoints"
+- [ ] Log in as a seed user (e.g. `jake`, password `password123`)
+- [ ] Test manually with curl: bookmark, list bookmarks, unbookmark
+- [ ] Run `npm run db:check` — should now show bookmark count
 - [ ] Nudge if they skip: "Tests pass, but have you actually hit the API?"
 
-### Step 6: Ship to a PR (~5 min)
+## Step 6: Ship to a PR (5 min)
 
 - [ ] "Ask Claude to commit and create a PR on a feature branch"
 - [ ] Claude handles git natively — no plugin needed
 
-### Step 7: Review the PR (~10 min)
+## Step 7: Review the PR (10 min)
 
-- [ ] `/clear` → `Ctrl+C` twice → `claude` (fresh session)
-- [ ] Install: `/plugin install code-review@claude-plugins-official`
-- [ ] Run the review against the PR
-- [ ] Fix any action items
+- [ ] `Ctrl+C` twice → `claude` (fresh session, NOT `claude -c`)
+- [ ] Install: `/plugin install pr-review-toolkit@claude-plugins-official`
+- [ ] Run: `/review-pr`
+- [ ] Results are presented locally — nothing posted to GitHub
+- [ ] Fix any action items with Claude's help
 - [ ] "This is how real reviews work — fresh eyes, separate context"
 
-## Part 4: The Ceiling (10 min)
+## Step 8: Reflect (5 min)
 
-- [ ] Show a real project's CLAUDE.md
-- [ ] Show hooks config (auto-format, auto-lint)
-- [ ] Mention full agent suite (8 agents)
-- [ ] Mention parallel sessions / worktrees
-- [ ] Keep it to 10 min — "There's more depth if you keep using it"
-
-## Part 5: Debrief + Q&A (10 min)
-
-- [ ] "What surprised you? What frustrated you?"
-- [ ] Let discussion flow — don't lecture
-- [ ] Land key points if they don't come up:
+- [ ] Wrap up with takeaways:
   - Context matters (issue + Notion doc = better result)
   - Steering is the skill (propose → evaluate → redirect)
   - It's a workflow, not a trick
+- [ ] Mention what's beyond: CLAUDE.md refinement, hooks, custom agents, parallel sessions
 - [ ] Close: "Try it on real work this week"
 
 ---
 
-## Tips to Drop Throughout
+## Tips to Drop Naturally
 
-Use these whenever relevant — no specific timing:
+Use these whenever the moment feels right — don't dump them all at once:
 
-| Tip                                | When to mention                                       |
-| ---------------------------------- | ----------------------------------------------------- |
-| `Esc` twice → history/rollback     | When they make a mistake or want to undo              |
-| `/context` → see loaded context    | When they ask "what does Claude know?"                |
-| `/model` → switch models           | When something is slow or too simple for Opus         |
-| `/permissions` → debug permissions | When permission prompts are confusing                 |
-| Hooks for auto-allow               | When permission prompts slow them down                |
-| `/clear` → clean context           | When switching tasks                                  |
-| `/rename` → name the session       | When they have multiple sessions                      |
-| `claude -c` vs `claude -r`         | When resuming work (-c keeps context, -r fresh start) |
-| `--dangerously-skip-permissions`   | For advanced users wanting full automation            |
+| Tip | When to mention |
+| --- | --- |
+| `!` prefix runs bash directly | When they want a quick command without Claude interpreting it |
+| `Shift+Tab` toggles plan mode | Before asking Claude to do something they want to review first |
+| `Escape` interrupts Claude | When Claude starts doing something they didn't intend |
+| `/allowed-tools` pre-approves tools | When permission prompts slow them down |
+| `/clear` resets context | When switching between unrelated tasks |
+| `Ctrl+C` twice → `claude -c` | When they need to restart to pick up new commands |
