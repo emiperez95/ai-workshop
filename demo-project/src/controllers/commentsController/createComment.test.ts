@@ -35,6 +35,7 @@ const mockUser = {
   followedBy: [],
   authored: [],
   favorites: [],
+  bookmarks: [],
 };
 
 const mockComment = {

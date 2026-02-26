@@ -21,6 +21,7 @@ model User {
   authored   Article[] @relation("Author") /// List of articles this user has written.
   favorites  Article[] @relation("Favorites") /// List of articles this user has favorited.
   comment    Comment[] @relation("Author") /// List of comments this user has written.
+  bookmarks  Bookmark[] /// List of articles this user has bookmarked.
 }
 
 model Article {
@@ -33,6 +34,7 @@ model Article {
   authorUsername String /// Username of the author of this article.
   favoritedBy    User[]    @relation("Favorites") /// List of users that have favorited this article.
   comments       Comment[] @relation("Comments") /// List of comments of this article.
+  bookmarks      Bookmark[] /// List of bookmarks for this article.
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @default(now())
 }
@@ -46,6 +48,16 @@ model Comment {
   authorUsername String /// Username of the author of this comment.
   Article        Article  @relation("Comments", fields: [articleSlug], references: [slug], onDelete: Cascade) /// Article that this comment belongs to.
   articleSlug    String /// Article slug that this comment belongs to.
+}
+
+model Bookmark {
+  user         User     @relation(fields: [username], references: [username], onDelete: Cascade)
+  username     String
+  article      Article  @relation(fields: [articleSlug], references: [slug], onDelete: Cascade)
+  articleSlug  String
+  bookmarkedAt DateTime @default(now())
+
+  @@id([username, articleSlug])
 }
 
 model Tag {
