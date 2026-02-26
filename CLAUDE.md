@@ -16,7 +16,7 @@ A hands-on workshop to get 6-10 experienced engineers to adopt agentic AI (Claud
 - Give them a tool and real tasks, let them form their own opinion
 
 ### Format
-- 2 hours, hands-on
+- 1.5 hours, hands-on
 - Tool: Claude Code (terminal)
 - Demo project: RealWorld blog API (Express + TypeScript + Prisma + SQLite)
 - Everyone works the same GitHub issue (#1: Add bookmarks)
@@ -47,7 +47,6 @@ A hands-on workshop to get 6-10 experienced engineers to adopt agentic AI (Claud
 | Minerva (Notion reader) | Agent | Pre-built in repo | Uses Notion MCP |
 | `/board-status` | Command | **Participants build this** | Uses `gh` CLI |
 | `code-review` | Plugin | Participants install | Official plugin |
-| `commit-commands` | Plugin | Participants install | Official plugin |
 | CLAUDE.md | Config | Participants run `/init` | Built into Claude Code |
 
 ### What's NOT in the workshop

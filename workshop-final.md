@@ -22,7 +22,7 @@ Every participant leaves having:
 5. **Seen the ceiling** — a brief look at what advanced workflows look like
 
 ### Format
-- **Duration**: ~2 hours
+- **Duration**: ~1.5 hours
 - **Group**: 6-10 engineers
 - **Style**: Hands-on workshop — they do the work, you facilitate
 - **Tool**: Claude Code (terminal)
@@ -136,7 +136,7 @@ Participants do this on their own, 3+ days before the workshop.
 **10-minute orientation** — everyone follows along:
 
 1. Open Claude Code in the demo project: `cd demo-project && claude`
-2. Run `/init` to generate the project's `CLAUDE.md`
+2. Run `/init` to generate the project's `CLAUDE.md` (~1 min)
    - "This teaches Claude about the project. It reads this file at the start of every session."
    - Quick look at what it generated — structure, test commands, conventions
 3. Quick orientation (3 min):
@@ -144,6 +144,11 @@ Participants do this on their own, 3+ days before the workshop.
    - When it wants to run a command or edit a file, it asks permission
    - If it goes in the wrong direction, just tell it
    - That's all you need — start building
+4. Start the server (~2 min):
+   - Ask Claude to start the dev server: `npm run develop`
+   - Verify it's running on `http://localhost:3000`
+   - Hit the health endpoint or list articles to confirm: `curl http://localhost:3000/api/articles`
+   - "This is the app you'll be adding a feature to. Keep the server running."
 
 ### Part 2: Build Your First Command (15 min)
 
@@ -159,6 +164,8 @@ Participants do this on their own, 3+ days before the workshop.
 - They test it: `/board-status`
 - They see the issues, spot issue #1
 - They've just extended Claude Code themselves
+
+**After the command works**: Tell them to run `/clear` to clean the conversation context — the next steps (working the ticket) are unrelated to command creation and they want a fresh context. Then exit Claude Code with `Ctrl+C` twice and resume with `claude -c` to start fresh with the cleared context.
 
 **Facilitator note**: Have `facilitator-backup/board-status.md` ready to drop in for anyone who gets stuck.
 
@@ -186,26 +193,41 @@ This is the core learning moment. Claude will propose a plan. Participants shoul
 - Notice if it contradicts the Notion doc
 - Push back on design decisions
 - Discuss alternatives in plan mode
-- Refine until they're satisfied
 
-**Facilitator tip**: Walk around during this phase. If someone just approves the plan without reading it, nudge them: "What approach did it pick for the data model? Does that match what the design doc says?"
+**After they've discussed the architecture**, tell them to ask Claude to add a TDD approach to the plan: "Also plan the test cases — I want tests written first, then the implementation to make them pass." This gives a second round of discussion: do the test cases cover the right scenarios? What edge cases are missing?
+
+**Facilitator tip**: Walk around during this phase. If someone just approves the plan without reading it, nudge them: "What approach did it pick for the data model? Does that match what the design doc says?" Once they move to TDD, nudge: "Do the test cases cover edge cases like bookmarking an already-bookmarked article? Unauthorized access?"
 
 #### Step 4: Implement (~15-20 min)
 > "Approve the plan and let Claude implement it."
 
-Claude writes the code: Prisma schema change, query functions, controller, routes, validator, viewer updates, tests. They approve each step.
+Claude writes the tests first (they should fail), then the implementation to make them pass. They approve each step and watch the red-green cycle.
 
-#### Step 5: Review (~10 min)
-> "Install the code review plugin and run it."
+#### Step 5: Test the feature (~5 min)
+> "Start the server and try the feature you just built."
+
+If the server isn't still running, ask Claude to start it with `npm run develop`. Then test the bookmark endpoints manually with `curl` or ask Claude to do it:
+- Create a user and log in to get a token
+- Bookmark an article
+- List bookmarked articles
+- Unbookmark the article
+
+This is the moment they see the feature working end-to-end — not just tests passing, but real API responses.
+
+**Facilitator tip**: If someone skips this, nudge them: "Tests passing is great, but have you actually tried the API? Fire up the server and hit the endpoints."
+
+#### Step 6: Ship to a PR (~5 min)
+> "Commit the work and create a PR on a feature branch."
+
+Ask Claude to commit the changes and create a PR on a feature branch. Claude can handle git natively — no plugin needed.
+
+#### Step 7: Review the PR (~10 min)
+> "Clear context, start a fresh session, and review the PR."
+
+Tell them to run `/clear`, then exit with `Ctrl+C` twice and start a new session with `claude`. Now they install the code review plugin and review the PR from a clean context:
 
 They install: `/plugin install code-review@claude-plugins-official`
-Then run the review. Claude reviews its own code and gives feedback. They fix action items.
-
-#### Step 6: Ship (~5 min)
-> "Commit and create a PR."
-
-They install: `/plugin install commit-commands@claude-plugins-official`
-Then run `/commit` to create the commit with a good message, or do it manually with git.
+Then run the review against the PR. This is more realistic than reviewing in the same session — in real work, reviews happen separately from implementation. Claude reviews the diff with fresh eyes and flags issues. They fix any action items.
 
 ### Part 4: The Ceiling (10 min)
 **Format**: Brief show-and-tell. Facilitator shares screen.
@@ -231,6 +253,20 @@ Let it flow naturally. Likely topics:
 - **"What about our actual project?"** The `CLAUDE.md` is the bridge. Writing one for the real project is the natural next step.
 
 **Close with**: "You have Claude Code installed. Try it on your real work this week. We can share notes next Friday."
+
+### Tips to Drop Throughout the Workshop
+
+No specific timing — mention these whenever they come up naturally or when you see someone struggling with the relevant issue:
+
+- **`Esc` twice** → opens history mode, lets you scroll back and rollback to a previous state
+- **`/context`** → shows what context Claude is working with (CLAUDE.md, agents, MCP servers) and explains what each piece does
+- **`/model`** → switch between models mid-session (e.g. Sonnet for speed, Opus for complex planning)
+- **`/permissions`** → debug current permission settings — useful when Claude keeps asking for approval
+- **Hooks for auto-allow** → if permission prompts are slowing someone down, show them how to set up hooks to auto-approve specific tools
+- **`/clear`** → clean conversation context when switching to an unrelated task
+- **`--dangerously-skip-permissions`** → launch Claude with no permission prompts at all — useful for fully automated workflows, but explain the tradeoff (it can run anything without asking)
+- **`/rename`** → rename the current session for easy identification later
+- **`claude -c` vs `claude -r`** → `-c` continues the last session (keeps full context), `-r` resumes in a new session (starts fresh but can see previous messages). Use `-c` when you want to keep working, `-r` when you want a clean slate but with memory of what happened
 
 ---
 
