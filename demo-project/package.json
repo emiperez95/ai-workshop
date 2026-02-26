@@ -7,7 +7,7 @@
     "build": "dotenv -e .env -- npx tsc",
     "start": "node dist/server.js",
     "start:debug": "DEBUG=express:* node dist/server.js",
-    "setup": "dotenv -e .env.development -- npx prisma db push",
+    "setup": "dotenv -e .env.development -- npx prisma db push && npm run seed",
     "develop": "npm run setup && dotenv -e .env.development -- npx tsc && dotenv -e .env.development -- node --watch dist/server.js",
     "studio:develop": "dotenv -e .env.development -- npx prisma studio",
     "migrate:develop": "dotenv -e .env.development -- npx prisma db push",
@@ -15,7 +15,11 @@
     "style": "npx prettier --check .",
     "test": "dotenv -e .env.development -- jest -i",
     "test:watch": "dotenv -e .env.development -- jest -i --watch --coverage=false",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "seed": "dotenv -e .env.development -- npx tsx prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "dotenv -e .env.development -- npx tsx prisma/seed.ts"
   },
   "repository": {
     "type": "git",
